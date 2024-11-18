@@ -9,8 +9,8 @@ from datetime import datetime
 def home():
     return render_template('home.html') # 回傳 home.html
 
-@app.route('/register', methods=['GET', 'POST']) # 路由
-def register():
+@app.route('/register', methods=['GET', 'POST'])
+def register(): # 註冊
     if request.method == 'POST':
         user_id = request.form.get('user_id')
         name = request.form.get('name')
@@ -35,7 +35,7 @@ def register():
     return render_template('register.html')
 
 @app.route('/login', methods=['GET', 'POST'])
-def login():
+def login(): # 登入
     if request.method == 'POST':
         user_id = request.form.get('user_id')
         password = request.form.get('password')
@@ -51,25 +51,45 @@ def login():
     return render_template('login.html')
 
 @app.route('/addNote', methods=['GET', 'POST'])
-def addNote():
+def addNote(): # 新增便利貼
     if request.method == 'POST':
         content = request.form.get('content')
         user_id = request.args.get('user_id')
         
         if not Note.user_ID  == user_id:
-            # 建立新筆記
+            # 建立新便利貼
             newNote = Note(note_ID=uuid.uuid4(), content=content, time=datetime.now(), user_id=user_id)
             Note.session.add(newNote)
             Note.session.commit()
             flash('新增筆記成功！')
         else:
-            # 更新筆記
+            # 更新便利貼
             updateNote = Note.query.filter_by(user_id=user_id).first()
             updateNote.content = content
             updateNote.time = datetime.now()
             Note.session.commit()
             flash('更新筆記成功！')
         
-        return redirect(url_for('home', user_id=user_id))
+        return redirect(url_for('home', user_id=user_id)) # 修改完重新導向至 home.html
 
-    return render_template('addNote.html')
+    return render_template('addNote.html') # 回傳 addNote.html
+
+@app.route('/createRoom', methods=['GET', 'POST'])
+def createRoom(): # 建立聊天室
+    if request.method == 'POST':
+        user_id1 = request.args.get('user_id1')
+        user_id2 = request.args.get('user_id2')
+        
+        # 建立新聊天室
+        newRoom = Room(room_no=uuid.uuid4(), user_id1=user_id1, user_id2=user_id2)
+        Room.session.add(newRoom)
+        Room.session.commit()
+        flash('建立聊天室成功！')
+        
+        return redirect(url_for('/room/<int:room_no>', room_no=newRoom.room_no))
+    
+    return render_template('createRoom.html')
+
+@app.route('/room/<int:room_no>', methods=['GET', 'POST'])
+def chat(room_no): # 聊天室畫面
+    pass
