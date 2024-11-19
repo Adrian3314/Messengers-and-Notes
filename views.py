@@ -86,14 +86,13 @@ def createRoom(): # 建立聊天室
         elif Room.query.filter_by(user_id1=user_id2, user_id2=user_id1).first():
             flash('聊天室已存在！')
             return redirect(url_for('/room/<int:room_no>', room_no=Room.query.filter_by(user_id1=user_id2, user_id2=user_id1).first().room_no))
-
-        # 建立新聊天室
-        newRoom = Room(room_no=uuid.uuid4(), user_id1=user_id1, user_id2=user_id2)
-        Room.session.add(newRoom)
-        Room.session.commit()
-        flash('建立聊天室成功！')
-        
-        return redirect(url_for('/room/<int:room_no>', room_no=newRoom.room_no))
+        else:
+            # 建立新聊天室
+            newRoom = Room(room_no=uuid.uuid4(), user_id1=user_id1, user_id2=user_id2)
+            Room.session.add(newRoom)
+            Room.session.commit()
+            flash('建立聊天室成功！')
+            return redirect(url_for('/room/<int:room_no>', room_no=newRoom.room_no))
     
     return render_template('createRoom.html')
 
