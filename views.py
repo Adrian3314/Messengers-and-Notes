@@ -79,7 +79,14 @@ def createRoom(): # 建立聊天室
     if request.method == 'POST':
         user_id1 = request.args.get('user_id1')
         user_id2 = request.args.get('user_id2')
-        
+
+        if Room.query.filter_by(user_id1=user_id1, user_id2=user_id2).first():
+            flash('聊天室已存在！')
+            return redirect(url_for('/room/<int:room_no>', room_no=Room.query.filter_by(user_id1=user_id1, user_id2=user_id2).first().room_no))
+        elif Room.query.filter_by(user_id1=user_id2, user_id2=user_id1).first():
+            flash('聊天室已存在！')
+            return redirect(url_for('/room/<int:room_no>', room_no=Room.query.filter_by(user_id1=user_id2, user_id2=user_id1).first().room_no))
+
         # 建立新聊天室
         newRoom = Room(room_no=uuid.uuid4(), user_id1=user_id1, user_id2=user_id2)
         Room.session.add(newRoom)
