@@ -98,4 +98,4 @@ def createRoom(): # 建立聊天室
 
 @app.route('/room/<int:room_no>', methods=['GET', 'POST'])
 def chat(room_no): # 聊天室畫面
-    pass
+    return render_template('room.html', room_no=room_no)
