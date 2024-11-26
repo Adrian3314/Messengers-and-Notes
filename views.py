@@ -61,14 +61,14 @@ def addNote(): # 新增便利貼
             newNote = Note(note_ID=uuid.uuid4(), content=content, time=datetime.now(), user_id=user_id)
             Note.session.add(newNote)
             Note.session.commit()
-            flash('新增筆記成功！')
+            flash('新增便利貼成功！')
         else:
             # 更新便利貼
             updateNote = Note.query.filter_by(user_id=user_id).first()
             updateNote.content = content
             updateNote.time = datetime.now()
             Note.session.commit()
-            flash('更新筆記成功！')
+            flash('更新便利貼成功！')
         
         return redirect(url_for('home', user_id=user_id)) # 修改完重新導向至 home.html
 
@@ -99,3 +99,7 @@ def createRoom(): # 建立聊天室
 @app.route('/room/<int:room_no>', methods=['GET', 'POST'])
 def chat(room_no): # 聊天室畫面
     return render_template('room.html', room_no=room_no)
+
+@app.route('/sendMessage', methods=['GET', 'POST'])
+def sendMessage():
+    pass
