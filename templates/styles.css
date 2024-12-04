@@ -1,0 +1,37 @@
+.navbar-logo {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+.content {
+    padding: 20px;
+    border: 1px solid #ddd; /* 區塊的邊框 */
+}
+.container-right{
+    overflow: auto; /* 如果內容超出高度，則添加滾動條 */
+    height: 100vh; /* 延伸到整個螢幕高度 */
+}
+.divider {
+    border-left: 1px solid #ddd; /* 垂直分隔線 */
+    height: auto; /* 自適應高度 */
+}
+.chat-link {
+    display: block;
+    width: 100%;
+    padding: 10px 15px;
+    text-align: left;
+    border-bottom: 2px solid #dddddd;
+    color: #000;
+    text-decoration: none;
+}
+.chat-link:hover {
+    background-color: #e2e6ea; /* 滑鼠懸停效果 */
+}
+.chat-room-title{
+    border-bottom: 2px solid #dddddd;
+}
+.form-control {
+    border-radius: 0 !important;
+}
+
