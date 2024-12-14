@@ -11,6 +11,11 @@
 .container-right{
     overflow: auto; /* 如果內容超出高度，則添加滾動條 */
     height: 100vh; /* 延伸到整個螢幕高度 */
+    width: auto;
+    position: relative;
+    padding-top: 70px; /* 確保內容距離頂部至少 30px */
+    padding-left: 0 ;
+    padding-right: 0;
 }
 .divider {
     border-left: 1px solid #ddd; /* 垂直分隔線 */
@@ -35,3 +40,33 @@
     border-radius: 0 !important;
 }
 
+.navbar-logo {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+.add-friend-btn {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: #000;
+}
+.add-friend-btn:hover {
+    color: #007bff; /* 滑鼠懸停效果 */
+}
+.container-right hr {
+    position: absolute;
+    top: 70px; /* 距離頂部 30px */
+    width: 100%;
+    border: 1px solid #ddd; /* 設定分隔線的顏色與樣式 */
+    margin: 0; /* 移除預設的 margin */
+}
+.container-right .chat-title {
+    position: absolute;
+    top: 18px;
+    left: 6px;
+    font-size: 2.2rem;
+    font-weight: bold;
+    margin: 0;
+}
