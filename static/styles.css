@@ -1,16 +1,47 @@
+.navbar{
+    position: fixed;
+    width: 100%;
+    height: 30%;
+    z-index: 1000;
+}
 .navbar-logo {
     width: 60px;
     height: 60px;
     border-radius: 50%;
     object-fit: cover;
 }
+.navbar-logo {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+.add-friend-btn {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: #000;
+}
+.add-friend-btn:hover {
+    color: #007bff; /* 滑鼠懸停效果 */
+}
 .content {
     padding: 20px;
     border: 1px solid #ddd; /* 區塊的邊框 */
 }
+.container-left {
+    max-height: 100vh; /* 最大高度設為視窗高度 */
+    overflow-y: auto;  /* 啟用垂直滾動 */
+    padding-right: 15px; /* 右邊間距，防止滾動條遮擋內容 */
+}
 .container-right{
     overflow: auto; /* 如果內容超出高度，則添加滾動條 */
     height: 100vh; /* 延伸到整個螢幕高度 */
+    width: auto;
+    position: relative;
+    padding-top: 70px; /* 確保內容距離頂部至少 30px */
+    padding-left: 0 ;
+    padding-right: 0;
 }
 .divider {
     border-left: 1px solid #ddd; /* 垂直分隔線 */
@@ -35,3 +66,80 @@
     border-radius: 0 !important;
 }
 
+.container-right hr {
+    position: absolute;
+    top: 70px; /* 距離頂部 30px */
+    width: 100%;
+    border: 1px solid #ddd; /* 設定分隔線的顏色與樣式 */
+    margin: 0; /* 移除預設的 margin */
+}
+.container-right .chat-title {
+    position: absolute;
+    top: 18px;
+    left: 6px;
+    font-size: 2.2rem;
+    font-weight: bold;
+    margin: 0;
+}
+
+body{
+
+}
+
+.chat-input {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    padding: 0 10% 1% 10%;
+    width: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.send-btn {
+    background-color: #00000000;
+    padding: 5px;
+    margin-left: 1%;
+    border: 1px solid #ddd;
+    border-radius: 100px;
+}
+
+.send-btn img {
+    width: 20px; /* 設定圖示大小 */
+    height: 20px;
+}
+
+.send-btn:hover {
+    background-color: #cfcfcfc3; /* 按鈕懸停效果 */
+}
+
+.circle-container {
+    display: flex;
+    overflow-x: auto; /* 启用水平滚动 */
+    gap: 10px; /* 圆形之间的间隔 */
+    padding: 10px 5px;
+}
+
+.circle {
+    width: 60px;
+    height: 60px;
+    border: 2px solid #ddd; /* 空心圓的邊框顏色 */
+    border-radius: 50%; /* 圓形 */
+    background-color: transparent; /* 圓形內部是透明的 */
+    flex-shrink: 0; /* 防止圓形被縮小 */
+}
+
+.circle-container::-webkit-scrollbar {
+    height: 8px; /* 滾動條高度 */
+}
+
+.circle-container::-webkit-scrollbar-thumb {
+    background-color: #aaa; /* 滾動條的顏色 */
+    border-radius: 10px;
+}
+
+.circle-container::-webkit-scrollbar-track {
+    background: #f1f1f1; /* 滾動條的背景顏色 */
+}
