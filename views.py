@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for, flash
+from flask_login import current_user, login_required
 from models import User, Note, Message, Room
 from app import app
 import uuid
@@ -7,7 +8,9 @@ from datetime import datetime
 @app.route('/') # 路由
 @app.route('/home')
 def home():
-    return render_template('home.html') # 回傳 home.html
+    if current_user.is_authenticated:
+        return render_template('home.html', user_id=current_user.user_id)
+    return render_template('login.html')
 
 @app.route('/register', methods=['GET', 'POST'])
 def register(): # 註冊
