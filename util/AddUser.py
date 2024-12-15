@@ -1,7 +1,17 @@
 import sqlite3
+from datetime import datetime
 
-predefine = [
+predefineUser = [
+    (1, 'user1', '123'),
+    (2, 'user2', '123')
+]
 
+predefineRoom = [
+    (1, 1, 2)
+]
+
+predefineMessage = [
+    (1, datetime)
 ]
 
 if __name__ == "__main__":
