@@ -44,9 +44,14 @@
             border-radius: 0;
         }
         .btn-login {
-            width: 100%;
+            width: 48%;
             background: #4d7873;
             border-color: #4d7873;
+        }
+        .btn-register {
+            width: 48%;
+            background: #495057;
+            border-color: #495057;
         }
     </style>
 </head>
@@ -64,7 +69,10 @@
                 <label for="password" class="form-label">Password</label>
                 <input type="password" class="form-control" id="password" placeholder="請輸入密碼" required>
             </div>
-            <button type="submit" class="btn btn-primary btn-login">登入</button>
+            <div class="d-flex justify-content-between">
+                <a href="register.html" class="btn btn-secondary btn-register">註冊</a>
+                <button type="submit" class="btn btn-primary btn-login">登入</button>
+            </div>
         </form>
     </div>
 
