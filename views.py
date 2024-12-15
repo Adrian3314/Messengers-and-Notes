@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for, flash
-from flask_login import current_user, login_required
+from flask_login import current_user, login_user, logout_user, login_required
 from models import User, Note, Message, Room
 from app import app
 import uuid
@@ -44,15 +44,19 @@ def login(): # 登入
         password = request.form.get('password')
         
         # 檢查使用者是否存在
-        user = User.query.filter_by(user_id=user_id).first()
+        user = User.query.filter_by(user_ID=user_id).first()
         if user and user.password == password:
+            login_user(user)
             return redirect(url_for('home', user_id=user_id))
+        elif not user:
+            flash('帳號或密碼錯誤')
         else:
             flash('帳號或密碼錯誤')
             return redirect(url_for('login'))
     
     return render_template('login.html')
 
+@login_required
 @app.route('/addNote', methods=['GET', 'POST'])
 def addNote(): # 新增便利貼
     if request.method == 'POST':
@@ -77,6 +81,7 @@ def addNote(): # 新增便利貼
 
     return render_template('addNote.html') # 回傳 addNote.html
 
+@login_required
 @app.route('/createRoom', methods=['GET', 'POST'])
 def createRoom(): # 建立聊天室
     if request.method == 'POST':
@@ -99,10 +104,12 @@ def createRoom(): # 建立聊天室
     
     return render_template('createRoom.html')
 
+@login_required
 @app.route('/room/<int:room_no>', methods=['GET', 'POST'])
 def chat(room_no): # 聊天室畫面
     return render_template('room.html', room_no=room_no)
 
+@login_required
 @app.route('/sendMessage', methods=['GET', 'POST'])
 def sendMessage():
     pass

@@ -5,6 +5,8 @@ from models import db
 app = Flask(__name__)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///MessengerAndNotes.db' # 資料庫名稱
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['SECRET_KEY'] = 'messengerandnotes'
 
 db.init_app(app)
 

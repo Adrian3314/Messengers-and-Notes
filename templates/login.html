@@ -55,17 +55,26 @@
         <div class="logo-section">
             <img src="../static/Mm_logo01.png" alt="Logo">
         </div>
-        <form>
+        <form method="post" action="{{ url_for('login') }}">
             <div class="mb-3">
-                <label for="userId" class="form-label">User ID</label>
-                <input type="text" class="form-control" id="userId" placeholder="請輸入 User ID" required>
+                <label for="user_id" class="form-label">User ID</label>
+                <input type="text" class="form-control" id="user_id" name="user_id" placeholder="請輸入 User ID" required>
             </div>
             <div class="mb-3">
                 <label for="password" class="form-label">Password</label>
-                <input type="password" class="form-control" id="password" placeholder="請輸入密碼" required>
+                <input type="password" class="form-control" id="password" name="password" placeholder="請輸入密碼" required>
             </div>
             <button type="submit" class="btn btn-primary btn-login">登入</button>
         </form>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-danger mt-3" role="alert">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
     </div>
 
     <!-- Bootstrap JavaScript -->
