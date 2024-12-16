@@ -33,13 +33,26 @@
                 <h3>聊天室</h3>
                 <!-- 便利貼 -->
                 <div class="circle-container">
-                    <div class="circle"></div>
-                    <div class="circle"></div>
-                    <div class="circle"></div>
-                    <div class="circle"></div>
-                    <div class="circle"></div>
-                    <div class="circle"></div>
+                    <div class="circle editable-circle" data-bs-toggle="modal" data-bs-target="#textInputModal">
+                        <img src="../static/plus.png" alt="Add" class="circle-icon">
+                    </div>
+                    <div class="circle" >
+                        <div class="label-box">Label 2Label 2Label 2Label 2Label 2Label 2Label 2Label 2Label 2Label 2</div>
+                    </div>
+                    <div class="circle" >
+                        <div class="label-box">Label 2</div>
+                    </div>
+                    <div class="circle" >
+                        <div class="label-box">Label 2</div>
+                    </div>
+                    <div class="circle" >
+                        <div class="label-box">Label 2</div>
+                    </div>
+                    <div class="circle" >
+                        <div class="label-box">Label 2</div>
+                    </div>
                 </div>
+                
                 <!-- 聊天室連結 -->
                 <div class="chat-link-container">
                     <a href="#" class="chat-link">聊天室 1</a>
@@ -111,8 +124,8 @@
                 <div class="modal-body">
                     <form>
                         <div class="mb-3">
-                            <label for="friend-username" class="form-label">好友名稱</label>
-                            <input type="text" class="form-control" id="friend-username" placeholder="輸入好友名稱">
+                            <label for="friend-userid" class="form-label">好友User_id</label>
+                            <input type="text" class="form-control" id="friend-userid" placeholder="輸入好友User_id">
                         </div>
                     </form>
                 </div>
@@ -124,6 +137,31 @@
         </div>
     </div>
 
+    <!-- 輸入便利貼的 Modal -->
+    <div class="modal fade" id="textInputModal" tabindex="-1" aria-labelledby="textInputModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="textInputModalLabel">輸入文字</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="textInput" class="form-label">請輸入文字</label>
+                            <input type="text" class="form-control" id="textInput" placeholder="輸入內容">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary">確認</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
