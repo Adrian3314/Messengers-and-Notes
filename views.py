@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_login import current_user, login_user, logout_user, login_required
 from models import User, Note, Message, Room
-from app import app
+from app import app, db
 import uuid
 from datetime import datetime
 
@@ -20,19 +20,19 @@ def register(): # 註冊
         password = request.form.get('password')
         
         # 檢查使用者是否存在
-        if User.query.filter_by(user_id=user_id).first():
-            flash('使用者帳號已存在')
+        if User.query.filter_by(user_ID=user_id).first():
+            flash('使用者帳號已存在', 'error')
         
         try:
             # 建立新使用者
-            newUser = User(user_id=user_id, name=name, password=password)
-            User.session.add(newUser)
-            User.session.commit()
-            flash('註冊成功！')
+            newUser = User(user_ID=user_id, name=name, password=password)
+            db.session.add(newUser)
+            db.session.commit()
+            flash('註冊成功！', 'success')
             return redirect(url_for('login'))
         except Exception as e:
             User.session.rollback()
-            flash('註冊失敗，請稍後再試')
+            flash('註冊失敗，請稍後再試', 'warning')
             return redirect(url_for('register'))
             
     return render_template('register.html')
@@ -49,10 +49,9 @@ def login(): # 登入
             login_user(user)
             return redirect(url_for('home', user_id=user_id))
         elif not user:
-            flash('帳號或密碼錯誤')
+            flash('帳號或密碼錯誤', 'error')
         else:
-            flash('帳號或密碼錯誤')
-            return redirect(url_for('login'))
+            flash('帳號或密碼錯誤', 'error')
     
     return render_template('login.html')
 
