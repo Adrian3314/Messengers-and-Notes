@@ -3,9 +3,9 @@ html, body {
     margin: 0;
 }
 
-.navbar{
-    width: 100%;
-    height: 10%;
+.navbar {
+    height: 80px;
+    background-color: #f8f9fa;
 }
 .navbar-logo {
     width: 60px;
@@ -13,20 +13,31 @@ html, body {
     border-radius: 50%;
     object-fit: cover;
 }
-.navbar-logo {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    object-fit: cover;
+.add-friend-btn, .profile-btn {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: #595b5e !important;
+    margin-left: 10px; /* 按鈕之間的間距 */
 }
-.add-friend-btn {
+
+/* 下拉選單樣式 */
+.dropdown-menu {
+    min-width: 100px; /* 設定下拉選單最小寬度 */
+    text-align: center;
+}
+.add-friend-btn,.dropdown {
     background: none;
     border: none;
     font-size: 1.5rem;
     color: #000;
 }
-.add-friend-btn:hover {
-    color: #007bff; /* 滑鼠懸停效果 */
+#profileDropdown::after {
+    border-top-color: black !important; /* 設定倒三角形的顏色為黑色 */
+}
+.dropdown-item:active {
+    background-color: #6c757d !important; /* 點擊時顯示灰色 */
+    color: white; /* 點擊時文字顏色變白 */
 }
 
 .container-left {
@@ -146,7 +157,7 @@ html, body {
 .chat-title {
     position: relative;
     width: 100%;
-    height: 7%;
+    height: 50px;
     border-bottom:1px solid #ddd;
     padding-top: 10px;
 }
