@@ -18,6 +18,9 @@ class User(UserMixin, db.Model): # 使用者資料表
 
     __tablename__ = 'user' # 資料表名稱
 
+    def get_id(self):
+        return self.user_ID
+
 class Note(db.Model): # 筆記資料表
     def __init__(self, note_ID, content, time, user_ID):
         self.note_ID = note_ID
