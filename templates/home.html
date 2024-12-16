@@ -43,20 +43,26 @@
                     <div class="circle editable-circle" data-bs-toggle="modal" data-bs-target="#textInputModal">
                         <img src="../static/plus.png" alt="Add" class="circle-icon">
                     </div>
-                    <div class="circle" >
-                        <div class="label-box">Label 2Label 2Label 2Label 2Label 2Label 2Label 2Label 2Label 2Label 2</div>
+                    <!-- 使用"data-label"屬性來控制點擊非editable circle時，Modal中要顯示的內容。 -->
+                    <div class="circle" data-bs-toggle="modal" data-bs-target="#textModal" data-label="Label 2: This is the second label content">
+                        <div class="label-box">Label 2: This is the second label content</div>
+                        <div class="user-name">User 1</div>  <!-- 用戶名稱 -->
                     </div>
-                    <div class="circle" >
-                        <div class="label-box">Label 2</div>
+                    <div class="circle" data-bs-toggle="modal" data-bs-target="#textModal" data-label="Label 3: Another label">
+                        <div class="label-box">Label 3: Another label</div>
+                        <div class="user-name">User 1</div>  <!-- 用戶名稱 -->
                     </div>
-                    <div class="circle" >
-                        <div class="label-box">Label 2</div>
+                    <div class="circle" data-bs-toggle="modal" data-bs-target="#textModal" data-label="Label 3: Another label">
+                        <div class="label-box">Label 3: Another label</div>
+                        <div class="user-name">User 1</div>  <!-- 用戶名稱 -->
                     </div>
-                    <div class="circle" >
-                        <div class="label-box">Label 2</div>
+                    <div class="circle" data-bs-toggle="modal" data-bs-target="#textModal" data-label="Label 3: Another label">
+                        <div class="label-box">Label 3: Another label</div>
+                        <div class="user-name">User 1</div>  <!-- 用戶名稱 -->
                     </div>
-                    <div class="circle" >
-                        <div class="label-box">Label 2</div>
+                    <div class="circle" data-bs-toggle="modal" data-bs-target="#textModal" data-label="Label 3: Another label">
+                        <div class="label-box">Label 3: Another label</div>
+                        <div class="user-name">User 1</div>  <!-- 用戶名稱 -->
                     </div>
                 </div>
                 
@@ -167,8 +173,39 @@
             </div>
         </div>
     </div>
+    
+    <!-- 顯示便利貼的Modal -->
+    <div class="modal fade" id="textModal" tabindex="-1" aria-labelledby="textModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="textModalLabel">標籤內容</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="modalLabelContent">
+                    <!-- 這裡將顯示選中的標籤內容 -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>// 使用 JavaScript 監聽每個 circle 點擊事件
+        document.querySelectorAll('.circle').forEach(function(circle) {
+            circle.addEventListener('click', function() {
+                // 確保不是 editable-circle 被點擊
+                if (!circle.classList.contains('editable-circle')) {
+                    // 取得該 circle 的 data-label 屬性
+                    const labelContent = circle.getAttribute('data-label');
+                    // 將內容顯示在 Modal 中
+                    document.getElementById('modalLabelContent').textContent = labelContent;
+                }
+            });
+        });
+    </script>
 </body>
 </html>

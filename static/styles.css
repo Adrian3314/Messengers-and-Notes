@@ -62,8 +62,11 @@ html, body {
 
 .circle-container {
     display: flex;
-    overflow-x: auto; /* 启用水平滚动 */
-    gap: 10px; /* 圆形之间的间隔 */
+    overflow-x: auto;
+    overflow-y: hidden;
+    height: 97px;
+    border-bottom: 2px solid #dddddd;
+    gap: 10px;
     padding: 10px 5px;
 }
 
@@ -76,18 +79,21 @@ html, body {
     background-color: transparent; /* 圓形內部是透明的 */
     flex-shrink: 0; /* 防止圓形被縮小 */
     cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
 }
 
-.circle{
-    position: relative;
-    width: 60px;
-    height: 60px;
-    border: 2px solid #ddd; /* 空心圓的邊框顏色 */
-    border-radius: 50%; /* 圓形 */
-    background-color: transparent; /* 圓形內部是透明的 */
-    flex-shrink: 0; /* 防止圓形被縮小 */
+.user-name {
+    margin-top: 10px; /* 圓形底部與用戶名稱間的距離 */
+    font-size: 12px;  /* 調整字體大小 */
+    color: #000;      /* 用戶名稱顏色 */
+    text-align: center;
+    position: absolute;
+    bottom: -20px;
 }
-
 
 .circle-icon {
     position: absolute;
@@ -114,13 +120,9 @@ html, body {
     max-height: 54px;
     overflow: hidden;
     display: -webkit-box; /* 使用彈性盒模型來控制多行文本 */
-
-    
     -webkit-line-clamp: 3; /* 限制顯示的行數，這裡是 3 行 */
     -webkit-box-orient: vertical; /* 垂直排列行 */
     text-overflow: ellipsis; /* 顯示省略號 */
-
-    
 }
 
 
@@ -136,6 +138,8 @@ html, body {
 .circle-container::-webkit-scrollbar-track {
     background: #f1f1f1; /* 滾動條的背景顏色 */
 }
+
+
 
 
 .divider {
