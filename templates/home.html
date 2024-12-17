@@ -69,7 +69,7 @@
                         {% for note in notes %}
                             <div class="circle" data-bs-toggle="modal" data-bs-target="#textModal" data-label="{{ note.content}}">
                                 <div class="label-box">{{ note.content }}</div>
-                                <div class="user-name">{{ note.user_ID }}</div>  <!-- 用戶名稱 -->
+                                <div class="user-name">{{ note.getUsername() }}</div>  <!-- 用戶名稱 -->
                             </div>
                         {% endfor %}
                     {% endif %}
@@ -79,7 +79,7 @@
                 <div class="chat-link-container">
                     {% if rooms %}
                         {% for room in rooms %}
-                            <a href="/room/{{ room.room_no }}" class="chat-link">{{ room.room_no }}</a>
+                            <a href="/room/{{ room.room_no }}" class="chat-link">{{ room.getOtherUser(current_user.user_ID) }}</a>
                         {% endfor %}
                     {% endif %}
                     

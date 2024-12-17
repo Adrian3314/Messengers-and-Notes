@@ -35,6 +35,10 @@ class Note(db.Model): # 筆記資料表
 
     __tablename__ = 'note' # 資料表名稱
 
+    def getUsername(self):
+        user = User.query.filter_by(user_ID=self.user_ID).first()
+        return user.name if user else "No Name"
+
 class Message(db.Model): # 訊息資料表
     def __init__(self, room_no, sender, time, message):
         self.room_no = room_no
@@ -60,3 +64,10 @@ class Room(db.Model): # 聊天室資料表
     user_ID2 = db.Column(db.String(50), db.ForeignKey('user.user_ID')) # 使用者編號2
 
     __tablename__ = 'room' # 資料表名稱
+
+    def getOtherUser(self, currentUserId):
+        if self.user_ID1 == currentUserId:
+            otherUser = User.query.filter_by(user_ID=self.user_ID2).first()
+        elif self.user_ID2 == currentUserId:
+            otherUser = User.query.filter_by(user_ID=self.user_ID1).first()
+        return otherUser.name if otherUser else "No Name"

@@ -11,7 +11,9 @@
 <body>
     <!-- 導航列 -->
     <nav class="navbar px-3">
-        <img src="../static/Mm_logo01.png" alt="Logo" class="navbar-logo">
+        <a href="{{ url_for('home') }}">
+            <img src="../static/Mm_logo01.png" alt="Logo" class="navbar-logo">
+        </a>
         <div class="d-flex ms-auto">
             <button class="add-friend-btn" data-bs-toggle="modal" data-bs-target="#addFriendModal">
                 <img src="../static/add_icon.png" alt="Add Friend" width="30" height="30">
@@ -69,7 +71,7 @@
                         {% for note in notes %}
                             <div class="circle" data-bs-toggle="modal" data-bs-target="#textModal" data-label="{{ note.content}}">
                                 <div class="label-box">{{ note.content }}</div>
-                                <div class="user-name">{{ note.user_ID }}</div>  <!-- 用戶名稱 -->
+                                <div class="user-name">{{ note.getUsername() }}</div>  <!-- 用戶名稱 -->
                             </div>
                         {% endfor %}
                     {% endif %}
@@ -79,7 +81,7 @@
                 <div class="chat-link-container">
                     {% if rooms %}
                         {% for room in rooms %}
-                            <a href="/room/{{ room.room_no }}" class="chat-link">{{ room.room_no }}</a>
+                            <a href="/room/{{ room.room_no }}" class="chat-link">{{ room.getOtherUser(current_user.user_ID) }}</a>
                         {% endfor %}
                     {% endif %}
                     
@@ -88,7 +90,7 @@
             <!-- 右邊區塊 (60%) -->
             <div class="col-sm-10 container-right" style="position: relative;">
                 <div class="chat-title">
-                    <h4>{{ room_no }}</h4>
+                    <h4>{{ room.getOtherUser(current_user.user_ID) }}</h4>
                 </div> 
                 
                 <div class="chat-content" id="chatBox">
@@ -109,9 +111,7 @@
                         <img src="../static/send.png" alt="Send" width="24" height="24">
                     </button>
                 </div>
-            </div>
-
-            
+            </div>            
         </div>
     </div>
 

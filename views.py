@@ -128,7 +128,7 @@ def room(room_no): # 聊天室畫面
         notes = Note.query.all()
         rooms = Room.query.filter(db.or_(Room.user_ID1 == current_user.user_ID, Room.user_ID2 == current_user.user_ID)).all()
 
-    return render_template('room.html', room_no=room_no, messages=messages, user_id=current_user.user_ID, notes=notes, rooms=rooms)
+    return render_template('room.html', room=room, room_no=room_no, messages=messages, user_id=current_user.user_ID, notes=notes, rooms=rooms)
 
 @login_required
 @app.route('/sendMessage', methods=['GET', 'POST'])
