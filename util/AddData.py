@@ -14,9 +14,9 @@ predefineRoom = [
 ]
 
 predefineMessage = [
-    (1, 1, datetime(2024, 1, 3, 7, 46, 20), "Hi"), 
-    (1, 2, datetime(2024, 1, 3, 13, 25, 12), "Hello"),
-    (1, 1, datetime(2024, 1, 4, 1, 36, 56), "Hey")
+    ("1", "01", datetime(2024, 1, 3, 7, 46, 20), "Hi"), 
+    ("1", "02", datetime(2024, 1, 3, 13, 25, 12), "Hello"),
+    ("1", "01", datetime(2024, 1, 4, 1, 36, 56), "Hey")
 ]
 
 if __name__ == "__main__":
