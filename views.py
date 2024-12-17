@@ -76,7 +76,7 @@ def addNote(): # 新增便利貼
             flash('新增便利貼成功！', 'success')
         else:
             # 更新便利貼
-            updateNote = Note.query.filter_by(user_id=user_id).first()
+            updateNote = Note.query.filter_by(user_ID=user_id).first()
             updateNote.content = content
             updateNote.time = datetime.now()
             db.session.commit()
