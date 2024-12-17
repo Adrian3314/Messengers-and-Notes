@@ -36,12 +36,14 @@ class Note(db.Model): # 筆記資料表
     __tablename__ = 'note' # 資料表名稱
 
 class Message(db.Model): # 訊息資料表
-    def __init__(self, room_no, time, message):
+    def __init__(self, room_no, sender, time, message):
         self.room_no = room_no
+        self.sender = sender
         self.time = time
         self.message = message
 
     room_no = db.Column(db.Integer, db.ForeignKey('room.room_no'), primary_key=True) # 聊天室編號
+    sender = db.Column(db.Integer, db.ForeignKey('user.user_ID')) # 發送者
     time = db.Column(db.DateTime, default = datetime.now, primary_key=True) # 訊息時間
     message = db.Column(db.String(1000)) # 訊息內容
 

@@ -1,4 +1,5 @@
 # Messengers-and-notes
+網路程式設計專題作品
 
 ## 環境設定
 請先安裝 Python  
@@ -8,6 +9,10 @@
 pip3 install flask
 pip3 install flask-sqlalchemy
 pip3 install flask-login
+```
+在資料庫新增預設資料：
+```
+python .\util\addData.py
 ```
 要啟動伺服器請輸入：
 ```

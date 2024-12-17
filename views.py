@@ -56,6 +56,12 @@ def login(): # 登入
     return render_template('login.html')
 
 @login_required
+@app.route('/logout', methods=['GET'])
+def logout(): # 登出
+    logout_user()
+    return redirect(url_for('home'))
+
+@login_required
 @app.route('/addNote', methods=['GET', 'POST'])
 def addNote(): # 新增便利貼
     if request.method == 'POST':

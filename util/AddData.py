@@ -14,15 +14,15 @@ predefineRoom = [
 ]
 
 predefineMessage = [
-    # (1, datetime(???), "Hi"), 
-    (1, datetime(), "Hello"),
-    (1, datetime(), "Hey")
+    (1, 1, datetime(2024, 1, 3, 7, 46, 20), "Hi"), 
+    (1, 2, datetime(2024, 1, 3, 13, 25, 12), "Hello"),
+    (1, 1, datetime(2024, 1, 4, 1, 36, 56), "Hey")
 ]
 
 if __name__ == "__main__":
-    db = sqlite3.connect('MessengerAndNotes.db')
+    db = sqlite3.connect('instance/MessengerAndNotes.db')
     cursor = db.cursor()
     cursor.executemany("INSERT INTO user VALUES(?, ?, ?)", predefineUser)
     cursor.executemany("INSERT INTO room VALUES(?, ?, ?)", predefineRoom)
-    cursor.executemany("INSERT INTO message VALUES(?, ?, ?)", predefineMessage)
+    cursor.executemany("INSERT INTO message VALUES(?, ?, ?, ?)", predefineMessage)
     db.commit()
