@@ -10,7 +10,7 @@ predefineUser = [
 ]
 
 predefineRoom = [
-    ("1", 1, 2)
+    ("1", "01", "02")
 ]
 
 predefineMessage = [
