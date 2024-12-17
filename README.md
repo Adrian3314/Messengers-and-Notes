@@ -9,6 +9,7 @@
 pip3 install flask
 pip3 install flask-sqlalchemy
 pip3 install flask-login
+pip3 install flask-socketio
 ```
 在資料庫新增預設資料：
 ```
