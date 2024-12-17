@@ -27,7 +27,28 @@
             </div>
         </div>
     </nav>
-    
+    {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    {% if category == 'error' %}
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                    {% elif category == 'warning' %}
+                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                    {% else %}
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
     <!-- 兩個區塊內容 -->
     <div class="container-fluid">
         <div class="row">
@@ -137,7 +158,7 @@
                 <div class="modal-body">
                     <form>
                         <div class="mb-3">
-                            <label for="friend-userid" class="form-label">好友User_id</label>
+                            <label for="friend-userid" class="form-label">好友User ID</label>
                             <input type="text" class="form-control" id="friend-userid" placeholder="輸入好友User_id">
                         </div>
                     </form>
@@ -155,20 +176,20 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="textInputModalLabel">輸入文字</h5>
+                    <h5 class="modal-title" id="textInputModalLabel">輸入便利貼</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form>
+                    <form method="POST" action="{{ url_for('addNote') }}">
                         <div class="mb-3">
                             <label for="textInput" class="form-label">請輸入文字</label>
-                            <input type="text" class="form-control" id="textInput" placeholder="輸入內容">
+                            <input type="text" class="form-control" id="content" name="content" placeholder="輸入內容">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                            <button type="submit" class="btn btn-primary">確認</button>
                         </div>
                     </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
-                    <button type="button" class="btn btn-primary">確認</button>
                 </div>
             </div>
         </div>

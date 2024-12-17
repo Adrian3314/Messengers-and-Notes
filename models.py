@@ -28,7 +28,7 @@ class Note(db.Model): # 筆記資料表
         self.time = time
         self.user_ID = user_ID
 
-    note_ID = db.Column(db.Integer, primary_key=True) # 便利貼編號
+    note_ID = db.Column(db.String(50), primary_key=True) # 便利貼編號
     content = db.Column(db.String(1000)) # 便利貼內容
     time = db.Column(db.DateTime, default = datetime.now) # 便利貼時間
     user_ID = db.Column(db.Integer, db.ForeignKey('user.user_ID')) 

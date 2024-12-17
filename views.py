@@ -66,25 +66,23 @@ def logout(): # 登出
 def addNote(): # 新增便利貼
     if request.method == 'POST':
         content = request.form.get('content')
-        user_id = request.args.get('user_id')
+        user_id = current_user.user_ID
         
-        if not Note.user_ID  == user_id:
+        if not Note.query.filter_by(user_ID=user_id).first():
             # 建立新便利貼
-            newNote = Note(note_ID=uuid.uuid4(), content=content, time=datetime.now(), user_id=user_id)
-            Note.session.add(newNote)
-            Note.session.commit()
+            newNote = Note(note_ID=str(uuid.uuid4()), content=content, time=datetime.now(), user_ID=user_id)
+            db.session.add(newNote)
+            db.session.commit()
             flash('新增便利貼成功！', 'success')
         else:
             # 更新便利貼
             updateNote = Note.query.filter_by(user_id=user_id).first()
             updateNote.content = content
             updateNote.time = datetime.now()
-            Note.session.commit()
+            db.session.commit()
             flash('更新便利貼成功！', 'success')
         
         return redirect(url_for('home', user_id=user_id)) # 修改完重新導向至 home.html
-
-    return render_template('addNote.html') # 回傳 addNote.html
 
 @login_required
 @app.route('/createRoom', methods=['GET', 'POST'])
