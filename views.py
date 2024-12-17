@@ -94,24 +94,22 @@ def addNote(): # 新增便利貼
 @app.route('/createRoom', methods=['GET', 'POST'])
 def createRoom(): # 建立聊天室
     if request.method == 'POST':
-        user_id1 = request.args.get('user_id1')
-        user_id2 = request.args.get('user_id2')
+        user_id1 = request.args.get('user_ID1')
+        user_id2 = request.args.get('user_ID2')
 
-        if Room.query.filter_by(user_id1=user_id1, user_id2=user_id2).first():
+        if Room.query.filter_by(user_ID1=user_id1, user_ID2=user_id2).first():
             flash('聊天室已存在！', 'error')
             return redirect(url_for('/room/<int:room_no>', room_no=Room.query.filter_by(user_id1=user_id1, user_id2=user_id2).first().room_no))
-        elif Room.query.filter_by(user_id1=user_id2, user_id2=user_id1).first():
+        elif Room.query.filter_by(user_ID1=user_id2, user_ID2=user_id1).first():
             flash('聊天室已存在！', 'error')
             return redirect(url_for('/room/<int:room_no>', room_no=Room.query.filter_by(user_id1=user_id2, user_id2=user_id1).first().room_no))
         else:
             # 建立新聊天室
-            newRoom = Room(room_no=uuid.uuid4(), user_id1=user_id1, user_id2=user_id2)
+            newRoom = Room(room_no=str(uuid.uuid4()), user_ID1=user_id1, user_ID2=user_id2)
             Room.session.add(newRoom)
             Room.session.commit()
             flash('建立聊天室成功！', 'success')
             return redirect(url_for('/room/<int:room_no>', room_no=newRoom.room_no))
-    
-    return render_template('createRoom.html')
 
 @login_required
 @app.route('/room/<int:room_no>', methods=['GET', 'POST'])

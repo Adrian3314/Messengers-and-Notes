@@ -55,7 +55,7 @@ class Room(db.Model): # 聊天室資料表
         self.user_ID1 = user_ID1
         self.user_ID2 = user_ID2
 
-    room_no = db.Column(db.Integer, primary_key=True) # 聊天室編號
+    room_no = db.Column(db.String(50), primary_key=True) # 聊天室編號
     user_ID1 = db.Column(db.Integer, db.ForeignKey('user.user_ID')) # 使用者編號1
     user_ID2 = db.Column(db.Integer, db.ForeignKey('user.user_ID')) # 使用者編號2
 
