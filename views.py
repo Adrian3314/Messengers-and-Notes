@@ -9,7 +9,11 @@ from datetime import datetime
 @app.route('/home')
 def home():
     if current_user.is_authenticated:
-        return render_template('home.html', user_id=current_user.user_ID)
+        notes = Note.query.all()
+        rooms = Room.query.filter(db.or_(Room.user_ID1 == current_user.user_ID, Room.user_ID2 == current_user.user_ID)).all()
+        print(notes)
+        return render_template('home.html', notes=notes, rooms=rooms, user_id=current_user.user_ID)
+    
     return render_template('login.html')
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -94,27 +98,37 @@ def addNote(): # 新增便利貼
 @app.route('/createRoom', methods=['GET', 'POST'])
 def createRoom(): # 建立聊天室
     if request.method == 'POST':
-        user_id1 = request.args.get('user_ID1')
-        user_id2 = request.args.get('user_ID2')
+        user_id1 = current_user.user_ID
+        user_id2 = request.form.get('user_ID2')
 
         if Room.query.filter_by(user_ID1=user_id1, user_ID2=user_id2).first():
             flash('聊天室已存在！', 'error')
-            return redirect(url_for('/room/<int:room_no>', room_no=Room.query.filter_by(user_id1=user_id1, user_id2=user_id2).first().room_no))
+            return redirect(url_for('/room', room_no=Room.query.filter_by(user_id1=user_id1, user_id2=user_id2).first().room_no))
         elif Room.query.filter_by(user_ID1=user_id2, user_ID2=user_id1).first():
             flash('聊天室已存在！', 'error')
-            return redirect(url_for('/room/<int:room_no>', room_no=Room.query.filter_by(user_id1=user_id2, user_id2=user_id1).first().room_no))
+            return redirect(url_for('/room', room_no=Room.query.filter_by(user_id1=user_id2, user_id2=user_id1).first().room_no))
         else:
             # 建立新聊天室
             newRoom = Room(room_no=str(uuid.uuid4()), user_ID1=user_id1, user_ID2=user_id2)
-            Room.session.add(newRoom)
-            Room.session.commit()
+            db.session.add(newRoom)
+            db.session.commit()
             flash('建立聊天室成功！', 'success')
-            return redirect(url_for('/room/<int:room_no>', room_no=newRoom.room_no))
+            return redirect(url_for('/room', room_no=newRoom.room_no))
 
 @login_required
-@app.route('/room/<int:room_no>', methods=['GET', 'POST'])
-def chat(room_no): # 聊天室畫面
-    return render_template('room.html', room_no=room_no)
+@app.route('/room/<string:room_no>', methods=['GET', 'POST'])
+def room(room_no): # 聊天室畫面
+    room = Room.query.filter_by(room_no=room_no).first()
+    if not room:
+        flash('聊天室不存在！', 'error')
+        return redirect(url_for('home'))
+    
+    if current_user.is_authenticated:
+        messages = Message.query.filter_by(room_no=room_no).all()
+        notes = Note.query.all()
+        rooms = Room.query.filter(db.or_(Room.user_ID1 == current_user.user_ID, Room.user_ID2 == current_user.user_ID)).all()
+
+    return render_template('room.html', room_no=room_no, messages=messages, user_id=current_user.user_ID, notes=notes, rooms=rooms)
 
 @login_required
 @app.route('/sendMessage', methods=['GET', 'POST'])

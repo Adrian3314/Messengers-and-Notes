@@ -88,7 +88,26 @@
             <!-- 右邊區塊 (60%) -->
             <div class="col-sm-10 container-right" style="position: relative;">
                 <div class="chat-title">
-                    <h4>請點擊左側聊天室以開始聊天</h4>
+                    <h4>{{ room_no }}</h4>
+                </div> 
+                
+                <div class="chat-content" id="chatBox">
+                    {% if messages %}
+                        {% for message in messages %}
+                            {% if message.sender == current_user.user_ID %}
+                                <div class="message sent">{{ message.message }}</div>
+                            {% else %}
+                                <div class="message received">{{ message.message }}</div>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                </div>
+                 <!-- 在右邊區塊底部新增固定的輸入框 -->
+                <div class="chat-input">
+                    <input type="text" class="form-control" placeholder="在此輸入消息">
+                    <button class="send-btn" type="button">
+                        <img src="../static/send.png" alt="Send" width="24" height="24">
+                    </button>
                 </div>
             </div>
 
