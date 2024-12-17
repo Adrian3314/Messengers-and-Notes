@@ -3,9 +3,9 @@ html, body {
     margin: 0;
 }
 
-.navbar{
-    width: 100%;
-    height: 10%;
+.navbar {
+    height: 80px;
+    background-color: #f8f9fa;
 }
 .navbar-logo {
     width: 60px;
@@ -13,20 +13,31 @@ html, body {
     border-radius: 50%;
     object-fit: cover;
 }
-.navbar-logo {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    object-fit: cover;
+.add-friend-btn, .profile-btn {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: #595b5e !important;
+    margin-left: 10px; /* 按鈕之間的間距 */
 }
-.add-friend-btn {
+
+/* 下拉選單樣式 */
+.dropdown-menu {
+    min-width: 100px; /* 設定下拉選單最小寬度 */
+    text-align: center;
+}
+.add-friend-btn,.dropdown {
     background: none;
     border: none;
     font-size: 1.5rem;
     color: #000;
 }
-.add-friend-btn:hover {
-    color: #007bff; /* 滑鼠懸停效果 */
+#profileDropdown::after {
+    border-top-color: black !important; /* 設定倒三角形的顏色為黑色 */
+}
+.dropdown-item:active {
+    background-color: #6c757d !important; /* 點擊時顯示灰色 */
+    color: white; /* 點擊時文字顏色變白 */
 }
 
 .container-left {
@@ -51,8 +62,11 @@ html, body {
 
 .circle-container {
     display: flex;
-    overflow-x: auto; /* 启用水平滚动 */
-    gap: 10px; /* 圆形之间的间隔 */
+    overflow-x: auto;
+    overflow-y: hidden;
+    height: 97px;
+    border-bottom: 2px solid #dddddd;
+    gap: 10px;
     padding: 10px 5px;
 }
 
@@ -65,18 +79,21 @@ html, body {
     background-color: transparent; /* 圓形內部是透明的 */
     flex-shrink: 0; /* 防止圓形被縮小 */
     cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
 }
 
-.circle{
-    position: relative;
-    width: 60px;
-    height: 60px;
-    border: 2px solid #ddd; /* 空心圓的邊框顏色 */
-    border-radius: 50%; /* 圓形 */
-    background-color: transparent; /* 圓形內部是透明的 */
-    flex-shrink: 0; /* 防止圓形被縮小 */
+.user-name {
+    margin-top: 10px; /* 圓形底部與用戶名稱間的距離 */
+    font-size: 12px;  /* 調整字體大小 */
+    color: #000;      /* 用戶名稱顏色 */
+    text-align: center;
+    position: absolute;
+    bottom: -20px;
 }
-
 
 .circle-icon {
     position: absolute;
@@ -103,13 +120,9 @@ html, body {
     max-height: 54px;
     overflow: hidden;
     display: -webkit-box; /* 使用彈性盒模型來控制多行文本 */
-
-    
     -webkit-line-clamp: 3; /* 限制顯示的行數，這裡是 3 行 */
     -webkit-box-orient: vertical; /* 垂直排列行 */
     text-overflow: ellipsis; /* 顯示省略號 */
-
-    
 }
 
 
@@ -125,6 +138,8 @@ html, body {
 .circle-container::-webkit-scrollbar-track {
     background: #f1f1f1; /* 滾動條的背景顏色 */
 }
+
+
 
 
 .divider {
@@ -146,7 +161,7 @@ html, body {
 .chat-title {
     position: relative;
     width: 100%;
-    height: 7%;
+    height: 50px;
     border-bottom:1px solid #ddd;
     padding-top: 10px;
 }
