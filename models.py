@@ -12,7 +12,7 @@ class User(UserMixin, db.Model): # 使用者資料表
         self.name = name
         self.password = password
 
-    user_ID = db.Column(db.Integer, primary_key=True) # 使用者編號
+    user_ID = db.Column(db.String(50), primary_key=True) # 使用者編號
     name = db.Column(db.String(100)) # 使用者名稱
     password = db.Column(db.String(100)) # 使用者密碼
 

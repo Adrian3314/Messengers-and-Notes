@@ -2,11 +2,11 @@ import sqlite3
 from datetime import datetime
 
 predefineUser = [
-    (1, 'user1', '123'),
-    (2, 'user2', '123'),
-    (3, 'user3', '123'),
-    (4, 'user4', '123'),
-    (5, 'user5', '123')
+    ("01", 'user1', '123'),
+    ("02", 'user2', '123'),
+    ("03", 'user3', '123'),
+    ("04", 'user4', '123'),
+    ("05", 'user5', '123')
 ]
 
 predefineRoom = [

@@ -18,10 +18,16 @@ def register(): # 註冊
         user_id = request.form.get('user_id')
         name = request.form.get('name')
         password = request.form.get('password')
+        passwordConfirm = request.form.get('password_confirm')
         
         # 檢查使用者是否存在
         if User.query.filter_by(user_ID=user_id).first():
             flash('使用者帳號已存在', 'error')
+            return redirect(url_for('register'))
+        
+        if passwordConfirm != password:
+            flash('密碼不一致', 'error')
+            return redirect(url_for('register'))
         
         try:
             # 建立新使用者
