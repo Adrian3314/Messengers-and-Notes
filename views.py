@@ -10,7 +10,16 @@ from datetime import datetime
 @app.route('/home')
 def home():
     if current_user.is_authenticated:
-        notes = Note.query.all()
+        friends = db.session.query(User.user_ID).distinct().join(
+            Room, 
+            db.or_(
+                db.and_(Room.user_ID1 == User.user_ID, Room.user_ID2 == current_user.user_ID),
+                db.and_(Room.user_ID2 == User.user_ID, Room.user_ID1 == current_user.user_ID)
+            )
+        ).all()
+        friendsID = [friend[0] for friend in friends]
+        friendsID.append(current_user.user_ID)
+        notes = Note.query.filter(Note.user_ID.in_(friendsID)).all()
         rooms = Room.query.filter(db.or_(Room.user_ID1 == current_user.user_ID, Room.user_ID2 == current_user.user_ID)).all()
         print(notes)
         return render_template('home.html', notes=notes, rooms=rooms, user_id=current_user.user_ID)
