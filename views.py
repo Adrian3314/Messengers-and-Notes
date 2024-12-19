@@ -103,17 +103,17 @@ def createRoom(): # 建立聊天室
 
         if Room.query.filter_by(user_ID1=user_id1, user_ID2=user_id2).first():
             flash('聊天室已存在！', 'error')
-            return redirect(url_for('/room', room_no=Room.query.filter_by(user_id1=user_id1, user_id2=user_id2).first().room_no))
+            return redirect(url_for('room', room_no=Room.query.filter_by(user_ID1=user_id1, user_ID2=user_id2).first().room_no))
         elif Room.query.filter_by(user_ID1=user_id2, user_ID2=user_id1).first():
             flash('聊天室已存在！', 'error')
-            return redirect(url_for('/room', room_no=Room.query.filter_by(user_id1=user_id2, user_id2=user_id1).first().room_no))
+            return redirect(url_for('room', room_no=Room.query.filter_by(user_ID1=user_id2, user_ID2=user_id1).first().room_no))
         else:
             # 建立新聊天室
             newRoom = Room(room_no=str(uuid.uuid4()), user_ID1=user_id1, user_ID2=user_id2)
             db.session.add(newRoom)
             db.session.commit()
             flash('建立聊天室成功！', 'success')
-            return redirect(url_for('/room', room_no=newRoom.room_no))
+            return redirect(url_for('room', room_no=newRoom.room_no))
 
 @login_required
 @app.route('/room/<string:room_no>', methods=['GET', 'POST'])
