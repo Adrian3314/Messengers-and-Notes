@@ -1,7 +1,8 @@
 from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_login import current_user, login_user, logout_user, login_required
+from flask_socketio import emit, join_room, leave_room
 from models import User, Note, Message, Room
-from app import app, db
+from app import app, db, socketio
 import uuid
 from datetime import datetime
 
@@ -130,7 +131,32 @@ def room(room_no): # 聊天室畫面
 
     return render_template('room.html', room=room, room_no=room_no, messages=messages, user_id=current_user.user_ID, notes=notes, rooms=rooms)
 
+@socketio.on('join')
 @login_required
-@app.route('/sendMessage', methods=['GET', 'POST'])
-def sendMessage():
-    pass
+def onJoin(data):
+    try:
+        room = data.get('room')
+        if room:
+            join_room(room)
+    except Exception as e:
+        print(e)
+
+@socketio.on('sendMessage')
+@login_required
+# @app.route('/sendMessage', methods=['GET', 'POST'])
+def sendMessage(data):
+    try:
+        room_no = data.get('room')
+        message = data.get('message')
+        sender = current_user.user_ID
+        time = datetime.now()
+
+        newMessage = Message(room_no=room_no, sender=sender, time=time, message=message)
+        db.session.add(newMessage)
+        db.session.commit()
+
+        emit('receiveMessage', {'message': message, 'sender': sender}, room=room_no)
+    
+    except Exception as e:
+        db.session.rollback()
+        print(e)
