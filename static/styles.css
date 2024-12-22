@@ -13,6 +13,11 @@ html, body {
     border-radius: 50%;
     object-fit: cover;
 }
+.greeting {
+    font-size: 16px;
+    color: #333;
+    padding-left: 18px;
+  }
 .add-friend-btn, .profile-btn {
     background: none;
     border: none;
