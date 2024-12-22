@@ -211,6 +211,7 @@ html, body {
     margin-bottom: 10px;
     width: fit-content;
     max-width: 70%;
+    overflow-wrap: anywhere;
 }
 
 /* 發送的訊息樣式 */
@@ -222,6 +223,7 @@ html, body {
     width: fit-content;
     max-width: 70%;
     margin-left: auto; /* 將發送的訊息靠右對齊 */
+    overflow-wrap: anywhere;
 }
 
 /* 滾動條樣式 */
