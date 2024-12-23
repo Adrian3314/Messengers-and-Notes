@@ -13,6 +13,11 @@ html, body {
     border-radius: 50%;
     object-fit: cover;
 }
+.greeting {
+    font-size: 16px;
+    color: #333;
+    padding-left: 18px;
+  }
 .add-friend-btn, .profile-btn {
     background: none;
     border: none;
@@ -116,7 +121,8 @@ html, body {
     font-size: 11px;
     text-align: center;
     z-index: 1; /* 確保框框位於上層 */
-    max-width: 80px; /* 限制最大寬度，可依需求調整 */
+    /* max-width: 80px; 限制最大寬度，可依需求調整 */
+    width: 70px;
     max-height: 54px;
     overflow: hidden;
     display: -webkit-box; /* 使用彈性盒模型來控制多行文本 */
@@ -210,6 +216,7 @@ html, body {
     margin-bottom: 10px;
     width: fit-content;
     max-width: 70%;
+    overflow-wrap: anywhere;
 }
 
 /* 發送的訊息樣式 */
@@ -221,6 +228,7 @@ html, body {
     width: fit-content;
     max-width: 70%;
     margin-left: auto; /* 將發送的訊息靠右對齊 */
+    overflow-wrap: anywhere;
 }
 
 /* 滾動條樣式 */

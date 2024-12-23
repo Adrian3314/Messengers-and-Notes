@@ -12,6 +12,7 @@
     <!-- 導航列 -->
     <nav class="navbar px-3">
         <img src="../static/Mm_logo01.png" alt="Logo" class="navbar-logo">
+        <span class="greeting">您好，{{(current_user.user_ID) }}</span>
         <div class="d-flex ms-auto">
             <button class="add-friend-btn" data-bs-toggle="modal" data-bs-target="#addFriendModal">
                 <img src="../static/add_icon.png" alt="Add Friend" width="30" height="30">
@@ -56,7 +57,7 @@
             <div class="col-sm-2 p-0 content container-left">
                 <!-- 搜尋列 -->
                 <form class="mb-3">
-                    <input type="text" class="form-control" placeholder="搜尋好友" aria-label="搜尋好友">
+                    <input type="text" id="searchInput" class="form-control" placeholder="搜尋好友" aria-label="搜尋好友">
                 </form>
                 <h3>聊天室</h3>
                 <!-- 便利貼 -->
@@ -76,13 +77,19 @@
                 </div>
                 
                 <!-- 聊天室連結 -->
-                <div class="chat-link-container">
-                    {% if rooms %}
-                        {% for room in rooms %}
-                            <a href="/room/{{ room.room_no }}" class="chat-link">{{ room.getOtherUser(current_user.user_ID) }}</a>
-                        {% endfor %}
-                    {% endif %}
-                    
+                <div id="friendsListContainer">
+                    <div id="friendsList" class="chat-link-container">
+                        <!-- 原本的聊天室連結 -->
+                        {% if rooms %}
+                            {% for room in rooms %}
+                                <a href="/room/{{ room.room_no }}" class="chat-link">{{ room.getOtherUser(current_user.user_ID) }}</a>
+                            {% endfor %}
+                        {% endif %} 
+                    </div>
+                    <!-- 查無此聊天室提示 -->
+                    <div id="noResultsMessage" class="text-muted text-center" style="display: none;">
+                        查無此聊天室
+                    </div>
                 </div>
             </div>
             <!-- 右邊區塊 (60%) -->
@@ -177,5 +184,50 @@
             });
         });
     </script>
+    <script>
+        const searchInput = document.getElementById('searchInput');
+        const friendsList = document.getElementById('friendsList');
+        const noResultsMessage = document.getElementById('noResultsMessage');
+    
+        // 儲存原本的聊天室列表
+        const originalFriends = Array.from(friendsList.querySelectorAll('.chat-link'));
+    
+        // 當搜尋列獲得焦點時，清空聊天室
+        searchInput.addEventListener('focus', () => {
+            friendsList.innerHTML = ''; // 清空列表
+            noResultsMessage.style.display = 'block'; // 顯示「查無此聊天室」
+        });
+    
+        // 當輸入文字時，顯示符合條件的聊天室
+        searchInput.addEventListener('input', function () {
+            const filter = this.value.toLowerCase(); // 將輸入的文字轉為小寫
+            friendsList.innerHTML = ''; // 每次輸入時清空列表
+    
+            if (filter) {
+                // 過濾符合條件的好友
+                const filteredFriends = originalFriends.filter(friend =>
+                    friend.textContent.toLowerCase().includes(filter)
+                );
+    
+                // 檢查是否有符合條件的結果
+                if (filteredFriends.length > 0) {
+                    noResultsMessage.style.display = 'none'; // 隱藏「查無此聊天室」
+                    filteredFriends.forEach(friend => friendsList.appendChild(friend));
+                } else {
+                    noResultsMessage.style.display = 'block'; // 顯示「查無此聊天室」
+                }
+            } else {
+                noResultsMessage.style.display = 'block'; // 如果輸入內容清空，顯示「查無此聊天室」
+            }
+        });
+        searchInput.addEventListener('blur', () => {
+            if (!searchInput.value) {
+                friendsList.innerHTML = ''; // 清空後重新加入原始好友列表
+                originalFriends.forEach(friend => friendsList.appendChild(friend));
+                noResultsMessage.style.display = 'none'; // 如果輸入內容清空，顯示「查無此聊天室」
+            }
+        });
+    </script>
+    
 </body>
 </html>
