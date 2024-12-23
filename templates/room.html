@@ -221,14 +221,6 @@
                 messageInput.value = '';
             }
         }
-        socket.on('receiveMessage', function(data) {
-            const chatBox = document.getElementById('chatBox');
-            const messageDiv = document.createElement('div');
-            messageDiv.className = data.sender === '{{ current_user.user_ID }}' ? 'message sent' : 'message received';
-            messageDiv.textContent = data.message;
-            chatBox.appendChild(messageDiv);
-            chatBox.scrollTop = chatBox.scrollHeight;
-        });
         document.getElementById('messageInput').addEventListener('keypress', function(e) {
             if (e.key === 'Enter') {
                 sendMessage();
