@@ -12,7 +12,7 @@
     <!-- 導航列 -->
     <nav class="navbar px-3">
         <img src="../static/Mm_logo01.png" alt="Logo" class="navbar-logo">
-        <span class="greeting">您好，{{(current_user.user_ID) }}</span>
+        <span class="greeting">您好，{{ current_user.name }}</span>
         <div class="d-flex ms-auto">
             <button class="add-friend-btn" data-bs-toggle="modal" data-bs-target="#addFriendModal">
                 <img src="../static/add_icon.png" alt="Add Friend" width="30" height="30">
