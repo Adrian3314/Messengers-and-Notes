@@ -134,8 +134,17 @@ def room(room_no): # 聊天室畫面
         return redirect(url_for('home'))
     
     if current_user.is_authenticated:
+        friends = db.session.query(User.user_ID).distinct().join(
+            Room, 
+            db.or_(
+                db.and_(Room.user_ID1 == User.user_ID, Room.user_ID2 == current_user.user_ID),
+                db.and_(Room.user_ID2 == User.user_ID, Room.user_ID1 == current_user.user_ID)
+            )
+        ).all()
+        friendsID = [friend[0] for friend in friends]
+        friendsID.append(current_user.user_ID)
         messages = Message.query.filter_by(room_no=room_no).all()
-        notes = Note.query.all()
+        notes = Note.query.filter(Note.user_ID.in_(friendsID)).all()
         rooms = Room.query.filter(db.or_(Room.user_ID1 == current_user.user_ID, Room.user_ID2 == current_user.user_ID)).all()
 
     return render_template('room.html', room=room, room_no=room_no, messages=messages, user_id=current_user.user_ID, notes=notes, rooms=rooms)
